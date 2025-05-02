@@ -1,0 +1,22 @@
+<mat-form-field class="w-full" appearance="outline">
+  <mat-label class="text-sm">{{ label }}</mat-label>
+  <input
+    matInput
+    [type]="showPassword ? 'text' : type || 'password' || type || 'email'"
+    [formControl]="control"
+    [autocomplete]="autocomplete"
+    class="!text-sm"
+  />
+  <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+  @if(type=='password'){
+  <mat-icon (click)="toggleShowPassword()" matSuffix>
+    {{ showPassword ? "visibility_off" : "visibility" }}
+  </mat-icon>
+  } @if(type=='email'){
+  <span class="text-sm absolute top-[16px] right-[16px]" matTextSuffix
+    >&#64;gordoncollege.edu.ph</span
+  >
+  }
+
+  <mat-error>{{ error }}</mat-error>
+</mat-form-field>

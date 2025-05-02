@@ -1,0 +1,13 @@
+<div class="flex gap-4 flex-col md:flex-row">
+  <div class="nav-links  ">
+    <a routerLink="/" [class.navlinks-active]="(activeFragment | async)==='features'" fragment="features">FEATURES</a>
+    <a routerLink="/" [class.navlinks-active]="(activeFragment | async)==='how-it-works'" fragment="how-it-works">HOW IT
+      WORKS</a>
+    <a routerLink="/" [class.navlinks-active]="(activeFragment | async)==='faq'" fragment="faq">FAQ</a>
+    <a routerLink="/" [class.navlinks-active]="(activeFragment | async)==='contact'" fragment="contact">CONTACT</a>
+  </div>
+  <div class="flex flex-col md:flex-row gap-2">
+    <a mat-flat-button class="btn" routerLink="/admin">ADMIN</a>
+    <a mat-flat-button class="btn" routerLink="/student">STUDENT</a>
+  </div>
+</div>
