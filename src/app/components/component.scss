@@ -1,0 +1,33 @@
+.input{
+  @apply border shadow-none py-2 px-8 rounded-full
+}
+
+.btn {
+  @apply rounded-lg py-[18px] text-xs bg-gradient-to-l from-red-400 to-orange-500;
+}
+
+
+.delete-btn{
+  @apply disabled:bg-slate-300 bg-gray-100 py-2  px-8 text-xs sm:text-base text-amber-600 rounded-full hover:bg-gray-300 transition-colors flex w-full justify-center items-center
+}
+
+.edit-btn{
+  @apply bg-gray-100 py-2 px-8 xl:block hidden sm:text-base text-amber-600 rounded-full hover:bg-gray-300 transition-colors  w-full justify-center items-center
+}
+
+.navlinks{
+  @apply font-light text-xs bg-transparent  py-4 px-4 text-gray-100 rounded-full hover:bg-gray-600 transition-colors
+}
+.navlinks-active{
+  @apply font-light text-xs bg-orange-400  py-4 px-4 text-gray-100 rounded-full
+}
+
+.navlinks_expand{
+  @apply font-light w-full text-xs bg-transparent focus:bg-orange-400 py-4 px-8 text-gray-100 rounded-full transition-colors hover:bg-gray-600
+}
+
+.btn-secondary{
+ @apply disabled:bg-slate-300 bg-white  text-xs py-2  px-8 sm:text-base text-orange-400 rounded-full hover:bg-orange-500 hover:text-white transition-colors flex w-full justify-center items-center
+}
+
+

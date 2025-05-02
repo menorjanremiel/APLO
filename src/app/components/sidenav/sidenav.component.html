@@ -1,0 +1,22 @@
+<div class="h-full flex flex-col justify-between">
+   <div class="">
+      <div class="flex gap-2 py-4">
+        <img src="../../../assets/Frame 13.svg" alt="" srcset="">
+        <p class="text-2xl text-orange-400 font-bold">Gcattend.</p>
+      </div>
+
+      <app-navlinks icon="fa fa-gauge-high" where="/main/dashboard" name="Dashboard"/>
+      <app-navlinks icon="fa fa-calendar-check " where="/main/events" name="Events" />
+      <app-navlinks icon="fa fa-qrcode " where="/main/scanqrcode" name="Scan QR Code" />
+      <app-navlinks icon="fa fa-user-group " where="/main/participants" name="Participants" />
+      <app-navlinks icon="fa fa-print " where="/main/reports" name="Reports" />
+      <app-navlinks icon="fa-solid fa-comment-dots " where="/main/feedback" name="Feedback" />
+      <hr class="border-b-4 my-2 border-orange-400">
+      <app-navlinks icon="fa-solid fa-right-from-bracket " where="/main/logout"  name="Logout" />
+    </div>
+
+    <div class="py-2 text-center text-orange-400">
+      <p class="text-xl font-bold">{{ date | date: 'yyyy-MM-dd' }}</p>
+      <p class="text-xs">March 25, 202</p>
+    </div>
+</div>

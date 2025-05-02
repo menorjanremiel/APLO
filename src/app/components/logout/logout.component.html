@@ -1,0 +1,24 @@
+<div class="m-8 rounded-lg">
+    <div>
+      <div class="py-2">
+        <h1 class="text-lg">Logout Account?</h1>
+      </div>
+      <div class="py-2">
+        <p class="text-sm">Are you sure you want to logout?</p>
+        <p class="text-sm text-center"></p>
+      </div>
+      <div class="py-4 grid grid-cols-2 gap-4">
+        <app-button
+          [mat-dialog-close]="true"
+          btn="delete-btn"
+          buttonText="Cancel"
+        />
+        <app-button
+          [mat-dialog-close]="true"
+          (click)="logout()"
+          btn="btn"
+          buttonText="Logout"
+        />
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<div class="m-8 rounded-lg">
+  <div>
+    <div class="text-center">
+      <p class="text-base text-gray-500 dark:text-gray-400">
+        Give Feedback to Gcattend
+      </p>
+    </div>
+    <hr />
+    <div>
+      <h1 class="text-sm pb-4 text-gray-500 dark:text-gray-400">
+        How can we improve?
+      </h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Details</p>
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Please include as much info as possible...</mat-label>
+        <textarea matInput [(ngModel)]="feedbackText"></textarea>
+      </mat-form-field>
+    </div>
+
+    <label
+      for="dropzone-file"
+      class="flex flex-col items-center justify-center border border-gray-400 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+    >
+      <p class="p-4 text-sm text-gray-500 dark:text-gray-400">
+        Add screenshot or video
+      </p>
+
+      <input id="dropzone-file" type="file" class="hidden" />
+    </label>
+
+    <div class="py-4 grid grid-cols-2 gap-4">
+      <app-button
+        [mat-dialog-close]="true"
+        btn="delete-btn"
+        buttonText="Cancel"
+      />
+      <app-button
+        (click)="submitFeedback()"
+        [mat-dialog-close]="true"
+        btn="btn"
+        buttonText="Submit "
+      />
+    </div>
+  </div>
+</div>

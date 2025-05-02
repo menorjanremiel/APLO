@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @include mat.theme(
+    (
+      density: -4,
+    )
+  );
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mdc-notched-outline__notch {
+  border-right: none;
+}
