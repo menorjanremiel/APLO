@@ -1,0 +1,26 @@
+.mat-mdc-row,
+.mdc-data-table__content,
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+  @apply sm:text-xs text-[0.7rem] h-10  border-b-[#e0e0e0]
+}
+.mat-mdc-header-cell {
+  @apply text-[#794b1f]
+}
+.btn-table {
+  @apply rounded-lg text-xs p-1
+}
+.mat-column-event_date{
+width: 140px;
+}
+
+
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+

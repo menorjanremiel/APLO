@@ -1,26 +1,95 @@
+<div class="example-container" [class.example-is-mobile]="isMobile()">
+  <mat-toolbar class="!h-[64px]">
+    <div class="flex justify-between items-center w-full">
+      <div class="flex items-center gap-1">
+        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <h1 class="example-app-name !text-base !font-medium">PEREZ LAW OFFICE LEGAL AID</h1>
+      </div>
+      <div class="flex items-center gap-1">
+        <mat-icon class="!text-gray-500 material-icons-outlined">account_circle</mat-icon>
+        <h1 class="example-app-name !text-base !font-medium">Administrator</h1>
 
-  <div class="example-container" [class.example-is-mobile]="isMobile()">
-    <mat-toolbar class="example-toolbar">
-      <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-      <h1 class="example-app-name">Responsive App</h1>
-    </mat-toolbar>
+      </div>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container">
+    <!-- <mat-sidenav #snav [mode]="isMobile() ? 'over' : 'side'" [fixedInViewport]="isMobile()" fixedTopGap="56"> -->
+    <mat-sidenav #snav [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" [fixedInViewport]="isMobile()"
+      class="!w-[220px] pl-4 py-2 !bg-[#474747]">
 
-    <mat-sidenav-container class="example-sidenav-container"
-                          [style.marginTop.px]="isMobile() ? 56 : 0">
-      <mat-sidenav #snav [mode]="isMobile() ? 'over' : 'side'"
-                  [fixedInViewport]="isMobile()" fixedTopGap="56">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="flex gap-2 items-center py-4">
+            <img src="images/aplo-logo.png" alt="" srcset="" class="h-10 w-10" />
+            <p class="sm:text-3xl bg-gradient-to-l from-blue-400 to-violet-300 text-transparent bg-clip-text font-bold">
+              APLO.</p>
+          </div>
+
+          <mat-nav-list>
+            <div class="mr-4">
+              <button mat-flat-button (click)="openDialog()"
+                class="!p-6 !bg-gradient-to-r from-indigo-400 from- to-violet-400 "><mat-icon
+                  class="!mr-2 material-icons-outlined">add</mat-icon>New Transaction</button>
+            </div>
+          </mat-nav-list>
+
+          <mat-nav-list class="!border-0">
+            <a [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center "
+              routerLink="/admin/dashboard">
+              <mat-icon class="!mr-2 material-icons-outlined">home</mat-icon>
+              Dashboard
+            </a>
+          </mat-nav-list>
+          <mat-nav-list>
+            <a [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center"
+              routerLink="/admin/expenses">
+              <mat-icon class="!mr-2 material-icons-outlined">payments</mat-icon>
+              Expenses
+            </a>
+          </mat-nav-list>
+
+          <mat-nav-list>
+            <a [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center"
+              routerLink="/admin/revenue">
+              <mat-icon class="!mr-2 material-icons-outlined">stacked_line_chart</mat-icon>
+              Revenue
+            </a>
+          </mat-nav-list>
+          <mat-nav-list>
+            <a [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center"
+              routerLink="/admin/receipt">
+              <mat-icon class="!mr-2 material-icons-outlined">receipt</mat-icon>
+              Receipt
+            </a>
+          </mat-nav-list>
+          <mat-nav-list>
+            <a [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center"
+              routerLink="/admin/history">
+              <mat-icon class="!mr-2 material-icons-outlined">restore</mat-icon>
+              History
+            </a>
+          </mat-nav-list>
+        </div>
         <mat-nav-list>
-          <button mat-flat-button>click</button>
-
+          <a (click)="logout()" [routerLinkActive]="'navlinks-active'" class="navlinks flex justify-start items-center"
+            routerLink="/admin/events">
+            <mat-icon class="!mr-2 material-icons-outlined">logout</mat-icon>
+            Logout
+          </a>
         </mat-nav-list>
-      </mat-sidenav>
+      </div>
 
-      <mat-sidenav-content>
-        @for (content of fillerContent; track content) {
-    <p>{{content}}</p>
-  }
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="flex flex-col justify-center items-center  h-full">
 
+        <div class="flex flex-col h-full bg w-full p-4">
+          <div class="bg flex flex-col h-full w-full">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
 
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Add New Transaction</h2>
+<mat-dialog-content>
+  <!-- <p>Add new transaction?</p> -->
+  <div class="flex flex-col gap-4">
+    <button mat-flat-button (click)="openDialog()" class="!p-6
+                        !bg-gradient-to-r relative from-indigo-400 from- to-violet-400">
+      <mat-icon class="!mr-2 material-icons-outlined">add</mat-icon> New Budget
+    </button>
+    <button mat-flat-button (click)="openDialog()" class="!p-6
+                        !bg-gradient-to-r from-rose-300 from- to-rose-400">
+      <mat-icon class="!mr-2 material-icons-outlined">add</mat-icon> New Revenue
+    </button>
+    <button mat-flat-button (click)="openDialog()" class="!p-6
+                                !bg-gradient-to-r from-orange-300 from- to-orange-400">
+      <mat-icon class="!mr-2 material-icons-outlined">add</mat-icon> New Admin Expense
+    </button>
+    <button mat-flat-button (click)="openDialog()" class="!p-6
+                                !bg-gradient-to-r from-emerald-300 from- to-emerald-500">
+      <mat-icon class="!mr-2 material-icons-outlined">add</mat-icon> New Client Expense
+    </button>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="animal()" cdkFocusInitial>Ok</button> -->
+</mat-dialog-actions>

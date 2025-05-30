@@ -1,9 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="(form.valid)" class="h-full">
   <div class="px-4 py-4 flex flex-col justify-between h-full items-center md:w-[400px]">
     <div class="w-full">
-      <div class="pb-5 md:my-4">
-        <p class="text-base font-bold text-center text-zinc-600">ADMIN LOGIN</p>
-      </div>
 
       <mat-form-field class="w-full" appearance="outline">
         <mat-label class="text-xs">Email Address</mat-label>
@@ -14,8 +11,8 @@
 
       <mat-form-field class="w-full" appearance="outline">
         <mat-label class="text-xs">Password</mat-label>
-        <input matInput [type]="showPassword ? 'text' : type || 'password'" placeholder="Password"
-          formControlName="password" autocomplete="on" class="!text-sm" />
+        <input  matInput [type]="showPassword ? 'text' : type || 'password'" placeholder="Password"
+          formControlName="password" autocomplete="on" class="!text-sm " />
         <mat-icon (click)="toggleShowPassword()" matSuffix>
           {{ showPassword ? "visibility_off" : "visibility" }}
         </mat-icon>
@@ -23,8 +20,8 @@
       </mat-form-field>
     </div>
 
-    <div class="w-full flex justify-center mt-[100px]">
-      <button (click)="login()" [disabled]="!form.valid" class="w-[90%] md:w-full" mat-flat-button>LOGIN</button>
+    <div class=" flex justify-center w-full mt-[50px]">
+      <button (click)="login()" [disabled]="form.valid" class="w-[50%] !p-4" mat-flat-button>LOGIN</button>
     </div>
   </div>
 

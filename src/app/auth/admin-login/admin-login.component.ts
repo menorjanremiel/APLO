@@ -69,42 +69,43 @@ export class AdminLoginComponent {
   }
 
   login() {
-    const data: Admin = {
-      admin_email: this.form.value.email,
-      admin_password: this.form.value.password,
-    };
+    this.route.navigate(['/admin']);
+    // const data: Admin = {
+    //   admin_email: this.form.value.email,
+    //   admin_password: this.form.value.password,
+    // };
 
-    this.dt
-      .apiRequest('/login', data)
-      .pipe(
-        catchError((err) => {
-          this.snackBar.open('An error occurred. Please try again later.', '', {
-            duration: 4000,
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-          });
-          return throwError(() => err);
-        })
-      )
-      .subscribe({
-        next: (v) => {
-          if (v.status.remarks === 'success') {
-            this.Toast.fire({
-              icon: 'success',
-              title: 'Signed in successfully',
-            });
-            this.isLoggedin = true;
-            this.session.uploadToSession(v.payload);
-            this.route.navigate(['/admin']);
-          } else {
-            this.Toast.fire({
-              icon: 'error',
-              title: 'Login failed, Check your credentials',
-            });
-          }
-        },
-        error: (e) => console.error(e),
-      });
+    // this.dt
+    //   .apiRequest('/login', data)
+    //   .pipe(
+    //     catchError((err) => {
+    //       this.snackBar.open('An error occurred. Please try again later.', '', {
+    //         duration: 4000,
+    //         verticalPosition: 'bottom',
+    //         horizontalPosition: 'center',
+    //       });
+    //       return throwError(() => err);
+    //     })
+    //   )
+    //   .subscribe({
+    //     next: (v) => {
+    //       if (v.status.remarks === 'success') {
+    //         this.Toast.fire({
+    //           icon: 'success',
+    //           title: 'Signed in successfully',
+    //         });
+    //         this.isLoggedin = true;
+    //         this.session.uploadToSession(v.payload);
+    //         this.route.navigate(['/admin']);
+    //       } else {
+    //         this.Toast.fire({
+    //           icon: 'error',
+    //           title: 'Login failed, Check your credentials',
+    //         });
+    //       }
+    //     },
+    //     error: (e) => console.error(e),
+    //   });
   }
 
   toggleShowPassword() {

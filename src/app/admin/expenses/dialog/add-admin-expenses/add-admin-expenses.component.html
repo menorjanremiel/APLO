@@ -1,0 +1,66 @@
+@if (data.title) {
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">{{ data.cancelText || 'Cancel' }}</button>
+  <button mat-flat-button color="warn" (click)="dialogRef.close(true)">{{ data.confirmText || 'Confirm' }}</button>
+</mat-dialog-actions>
+} @else {
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Expense' : 'New Expense' }}</h2>
+<mat-dialog-content>
+  <div class="py-2 space-y-4">
+    <mat-form-field appearance="outline" class="w-full" floatLabel="always">
+      <mat-label>Expense Name</mat-label>
+      <input matInput [(ngModel)]="expenseName" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" [(ngModel)]="amount" required min="0" step="0.01" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full" floatLabel="always">
+      <mat-label>Date</mat-label>
+      <input matInput required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" floatLabel="always">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="status">
+        @for (option of statusOptions; track option.value) {
+        <mat-option [value]="option.value">{{ option.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex items-center justify-center w-full">
+      <label for="dropzone-file"
+        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 20 16">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+          </svg>
+          <p class="mb-2 text-sm text-gray-500">
+            <span class="font-semibold">Click to upload</span> or drag and drop
+          </p>
+          <p class="text-xs text-gray-500">PNG, JPG or PDF (MAX. 10MB)</p>
+          @if (receiptImage) {
+          <p class="mt-2 text-sm text-gray-500">Selected file: {{ receiptImage }}</p>
+          }
+        </div>
+        <input id="dropzone-file" type="file" class="hidden" (change)="onFileSelected($event)"
+          accept=".png,.jpg,.jpeg,.pdf" />
+      </label>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!expenseName || amount <= 0">
+    {{ isEditMode ? 'Update' : 'Add' }} Expense
+  </button>
+</mat-dialog-actions>
+}

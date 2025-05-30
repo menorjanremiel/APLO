@@ -1,0 +1,144 @@
+<div class="space-y-6">
+  <div class="flex justify-between items-center">
+    <h1 class="text-xl font-medium">Activity Logs</h1>
+    <button mat-stroked-button color="primary" (click)="exportToExcel()">
+      <mat-icon>download</mat-icon>
+      Export
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white p-4 rounded-lg shadow">
+    <div class="space-x-4 flex-grow">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" floatLabel="always" class="w-[500px]">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search logs..." [(ngModel)]="searchTerm" (keyup)="applyFilter()">
+        <mat-icon [mat-menu-trigger-for]="menu" matSuffix class="cursor-pointer"
+          matTooltip="Filter Logs">tune</mat-icon>
+
+        <mat-menu #menu="matMenu" xPosition="before" class="!bg-white p-4 w-80">
+          <div class="space-y-4">
+            <p class="text-sm font-medium">Filter Activity Logs</p>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" floatLabel="always"
+              (click)="$event.stopImmediatePropagation()" class="w-full">
+              <mat-label>Action Type</mat-label>
+              <mat-select [(ngModel)]="selectedActionType" (selectionChange)="applyFilter()">
+                <mat-option value="">All Actions</mat-option>
+                <mat-option value="create">Create</mat-option>
+                <mat-option value="update">Update</mat-option>
+                <mat-option value="delete">Delete</mat-option>
+                <mat-option value="login">Login</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" floatLabel="always"
+              (click)="$event.stopImmediatePropagation()" class="w-full">
+              <mat-label>Date Range</mat-label>
+              <mat-select [(ngModel)]="dateRange" (selectionChange)="applyFilter()">
+                <mat-option value="all">All Time</mat-option>
+                <mat-option value="today">Today</mat-option>
+                <mat-option value="weekly">This Week</mat-option>
+                <mat-option value="monthly">This Month</mat-option>
+                <mat-option value="custom">Custom Range</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="dateRange === 'custom'" class="space-y-4">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic" floatLabel="always"
+                (click)="$event.stopImmediatePropagation()" class="w-full">
+                <mat-label>Start Date</mat-label>
+                <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" subscriptSizing="dynamic" floatLabel="always"
+                (click)="$event.stopImmediatePropagation()" class="w-full">
+                <mat-label>End Date</mat-label>
+                <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="flex justify-end gap-2">
+              <button mat-button (click)="clearFilters()">Reset</button>
+              <button mat-flat-button color="primary" (click)="applyFilter()">Apply Filters</button>
+            </div>
+          </div>
+        </mat-menu>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Activity Logs Table -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="p-8 flex justify-center items-center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && (!dataSource || dataSource.data.length === 0)" class="p-8 text-center">
+      <mat-icon class="text-gray-400 text-5xl mb-4">history</mat-icon>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No Activity Logs Found</h3>
+      <p class="text-gray-500">Try adjusting your filters or search criteria</p>
+    </div>
+
+    <!-- Table Content -->
+    <div class="bg-white p-4">
+      <table *ngIf="!isLoading && dataSource && dataSource.data.length > 0" mat-table [dataSource]="dataSource" matSort
+        class="w-full !bg-white">
+        <!-- Timestamp Column -->
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
+          <td mat-cell *matCellDef="let log">{{log.timestamp | date:'medium'}}</td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let log">
+            <span [class]="'px-2 py-1 rounded-full text-sm ' + getActionClass(log.action)">
+              {{log.action}}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let log" class="max-w-md truncate">
+            <span [matTooltip]="log.description">{{log.description}}</span>
+          </td>
+        </ng-container>
+
+        <!-- Module Column -->
+        <ng-container matColumnDef="module">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Module</th>
+          <td mat-cell *matCellDef="let log">
+            <span class="px-2 py-1 bg-gray-100 rounded-full text-sm">{{log.module}}</span>
+          </td>
+        </ng-container>
+
+        <!-- User Column -->
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+          <td mat-cell *matCellDef="let log">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-gray-400">person</mat-icon>
+              <span>{{log.user}}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50"></tr>
+      </table>
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="onPageChange($event)" aria-label="Select page" class="border-t !bg-white">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
